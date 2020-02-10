@@ -1,13 +1,16 @@
 package com.newidea.cursomc;
 
 import com.newidea.cursomc.domain.*;
+import com.newidea.cursomc.domain.enums.EstadoPagamento;
 import com.newidea.cursomc.domain.enums.TipoCliente;
 import com.newidea.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import sun.jvm.hotspot.oops.Array;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -34,6 +37,12 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 	EnderecoRepository enderecoRepository;
+
+	@Autowired
+	PedidoRepository pedidoRepository;
+
+	@Autowired
+	PagamentoRepository pagamentoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -81,8 +90,24 @@ public class CursomcApplication implements CommandLineRunner {
 		cli1.getEnderecos().addAll(Arrays.asList(end1, end2));
 
 		clienteRepository.saveAll(Arrays.asList(cli1));
-
 		enderecoRepository.saveAll(Arrays.asList(end1, end2));
+
+		SimpleDateFormat sdf  = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+
+		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, end1);
+
+		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, end2);
+
+		Pagamento pag1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		ped1.setPagamento(pag1);
+
+		Pagamento pag2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/20/2017 00:00"), null);
+		ped2.setPagamento(pag2);
+
+		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pag1, pag2));
 	}
 }
 

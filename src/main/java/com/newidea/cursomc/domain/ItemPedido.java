@@ -1,13 +1,20 @@
 package com.newidea.cursomc.domain;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
+
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class ItemPedido implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @EmbeddedId
+    ItemPedidoPK id = new ItemPedidoPK();
 
-    private ItemPedidoPK id = new ItemPedidoPK();
     private Double desconto;
     private Integer quantidade;
     private Double preco;
@@ -28,23 +35,9 @@ public class ItemPedido implements Serializable {
         return id.getPedido();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ItemPedido that = (ItemPedido) o;
-        return id.equals(that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
     public Produto getProduto(){
         return id.getProduto();
     }
-
     public ItemPedidoPK getId() {
         return id;
     }
@@ -75,5 +68,18 @@ public class ItemPedido implements Serializable {
 
     public void setPreco(Double preco) {
         this.preco = preco;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemPedido that = (ItemPedido) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

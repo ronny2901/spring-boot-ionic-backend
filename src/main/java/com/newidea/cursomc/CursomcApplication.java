@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import sun.jvm.hotspot.oops.Array;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -46,6 +45,12 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 	ItemPedidoRepository itemPedidoRepository;
+
+	@Autowired
+	PessoaRepository pessoaRepository;
+
+	@Autowired
+	FuncionarioRepository funcionarioRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -124,6 +129,23 @@ public class CursomcApplication implements CommandLineRunner {
 		p3.getItens().addAll(Arrays.asList(ip2));
 
 		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+
+		Pessoa pess = new Pessoa(null, "Ronaldo", "32");
+
+		Funcionario func = new Funcionario(null, "chefe");
+
+		pessoaRepository.save(pess);
+
+		funcionarioRepository.save(func);
+
+		System.out.println("    .o88o.                               o8o                . ");
+		System.out.println("    888 `'                               `''              .o8 ");
+		System.out.println("   o888oo   .oooo.o  .ooooo.   .ooooo.  oooo   .ooooo.  .o888oo oooo    ooo ");
+		System.out.println("    888    d88(  '8 d88' `88b d88' `'Y8 `888  d88' `88b   888    `88.  .8' ");
+		System.out.println("    888    `'Y88b.  888   888 888        888  888ooo888   888     `88..8' ");
+		System.out.println("    888    o.  )88b 888   888 888   .o8  888  888    .o   888 .    `888' ");
+		System.out.println("   o888o   8''888P' `Y8bod8P' `Y8bod8P' o888o `Y8bod8P'   '888'      d8' ");
+		System.out.println("                                                                .o...P' ");
 
 	}
 }

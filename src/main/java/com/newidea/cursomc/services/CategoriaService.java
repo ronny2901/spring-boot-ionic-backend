@@ -4,6 +4,7 @@ import com.newidea.cursomc.domain.Categoria;
 import com.newidea.cursomc.repositories.CategoriaRepository;
 import com.newidea.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -31,5 +32,16 @@ public class CategoriaService {
     public Categoria update(Categoria obj){
         find(obj.getId());
         return respository.save(obj);
+    }
+
+    public void delete(Integer id){
+        find(id);
+        try{
+            respository.deleteById(id);
+        } catch (DataIntegrityViolationException e){
+            throw new DataIntegrityViolationException("Não é posssivel excluir uma categoria que possui produtos");
+        }
+
+
     }
 }

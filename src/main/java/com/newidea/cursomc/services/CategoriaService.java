@@ -1,6 +1,7 @@
 package com.newidea.cursomc.services;
 
 import com.newidea.cursomc.domain.Categoria;
+import com.newidea.cursomc.dto.CategoriaDTO;
 import com.newidea.cursomc.repositories.CategoriaRepository;
 import com.newidea.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,8 @@ public class CategoriaService {
         return respository.findAll(pageRequest);
     }
 
+    public Categoria fromDTO(CategoriaDTO obj){
+        return new Categoria(obj.getId(), obj.getNome());
+    }
 
 }

@@ -2,6 +2,7 @@ package com.newidea.cursomc.resources;
 
 import com.newidea.cursomc.domain.Categoria;
 import com.newidea.cursomc.domain.Pessoa;
+import com.newidea.cursomc.dto.CategoriaDTO;
 import com.newidea.cursomc.services.CategoriaService;
 import com.newidea.cursomc.services.TesteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value="/categorias")
@@ -26,7 +28,7 @@ public class CategoriaResource {
 
 
     @RequestMapping(value="/{id}", method= RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id){
+    public ResponseEntity<Categoria> find(@PathVariable Integer id){
 
         Categoria obj = service.find(id);
 
@@ -54,6 +56,16 @@ public class CategoriaResource {
 
         return ResponseEntity.noContent().build();
     }
+
+    @RequestMapping(method= RequestMethod.GET)
+    public ResponseEntity<List<CategoriaDTO>> findAll(){
+
+        List<Categoria> list = service.findAll();
+        List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(listDTO);
+    }
+
 
 
 }

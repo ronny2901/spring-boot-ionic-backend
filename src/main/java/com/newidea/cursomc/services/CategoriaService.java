@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,7 +42,11 @@ public class CategoriaService {
         } catch (DataIntegrityViolationException e){
             throw new DataIntegrityViolationException("Não é posssivel excluir uma categoria que possui produtos");
         }
-
-
     }
+
+    public List<Categoria> findAll(){
+        return respository.findAll();
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.newidea.cursomc.services;
 
 import com.newidea.cursomc.domain.Categoria;
+import com.newidea.cursomc.domain.Cliente;
 import com.newidea.cursomc.dto.CategoriaDTO;
 import com.newidea.cursomc.repositories.CategoriaRepository;
 import com.newidea.cursomc.services.exceptions.ObjectNotFoundException;
@@ -35,8 +36,9 @@ public class CategoriaService {
     }
 
     public Categoria update(Categoria obj){
-        find(obj.getId());
-        return respository.save(obj);
+        Categoria newObj = find(obj.getId());
+        updateData(newObj, obj);
+         return respository.save(newObj);
     }
 
     public void delete(Integer id){
@@ -60,6 +62,11 @@ public class CategoriaService {
 
     public Categoria fromDTO(CategoriaDTO obj){
         return new Categoria(obj.getId(), obj.getNome());
+    }
+
+    private void updateData (Categoria newObj, Categoria obj){
+
+        newObj.setNome(obj.getNome());
     }
 
 }

@@ -2,8 +2,8 @@ package com.newidea.cursomc.domain.enums;
 
 public enum TipoCliente {
 
-    PESSOAFISICA(0, "Pessoa Fisica"),
-    PESSOAJURIDICA(1, "Pessoa Juridica");
+    PESSOAFISICA(1, "Pessoa Fisica"),
+    PESSOAJURIDICA(2, "Pessoa Juridica");
 
     private int cod;
     private String descricao;

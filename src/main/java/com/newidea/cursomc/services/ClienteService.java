@@ -4,6 +4,7 @@ import com.newidea.cursomc.domain.Cidade;
 import com.newidea.cursomc.domain.Cliente;
 import com.newidea.cursomc.domain.Endereco;
 import com.newidea.cursomc.domain.enums.TipoCliente;
+import com.newidea.cursomc.dto.ClienteDTO;
 import com.newidea.cursomc.dto.ClienteNewDTO;
 import com.newidea.cursomc.repositories.ClienteRepository;
 import com.newidea.cursomc.repositories.EnderecoRepository;
@@ -69,7 +70,7 @@ public class ClienteService {
         return respository.findAll(pageRequest);
     }
 
-    public Cliente fromDTO(@Valid Cliente objDTO){
+    public Cliente fromDTO(@Valid ClienteDTO objDTO){
         return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), null, null);
     }
 
